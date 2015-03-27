@@ -14,12 +14,21 @@ Meteor.signInWithLinkedin = function (options, callback) {
   Meteor.signInWithExternalService ('loginWithLinkedin', options, callback);
 };
 
+Meteor.signInWithTrello = function (options, callback) {
+  Meteor.signInWithExternalService ('loginWithTrello', options, callback);
+};
+
+Meteor.signInWithGithub = function (options, callback) {
+  Meteor.signInWithExternalService ('loginWithGithub', options, callback);
+};
+
+
 Meteor.signInWithExternalService = function (service, options, callback) {
 
   var oldUserId = Meteor.userId();
   var oldLoginToken = Accounts._storedLoginToken();
 
-  Meteor[service]( function (error) {
+  Meteor[service]( options, function (error) {
 
     if (error) {
       if (typeof callback === 'function') callback (error);
